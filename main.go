@@ -44,5 +44,5 @@ func main() {
 			"message": "test",
 		})
 	})
-	r.Run() // 0.0.0.0:8080 でサーバーを立てます。
+	r.Run("localhost:8080")
 }
