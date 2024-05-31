@@ -6,7 +6,7 @@
       <HelloWorld msg="You did it!" />
 
       <div style="background-color: aqua;">
-        <h1 @click="getNumber" style="color: black;">ここを押すと、リクエストが飛んで、下に数字が表示されるよ!</h1>
+        <h1 @click="getNumber" style="color: black;">ここを押すと、リクエストが飛んで、下に数字が表示されるよ</h1>
 
         <h1 style="color: red;">{{ testString }}</h1>
       </div>
