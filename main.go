@@ -1,11 +1,14 @@
 package main
 
 import (
-  // "net/http"
-  controller "gin_vue_todo_application/controllers"
+	// "net/http"
+	model "gin_vue_todo_application/Model"
+	router "gin_vue_todo_application/controller"
 )
 
 func main() {
-  router := controller.GetRouter()
+  model.Init()
+
+  router := router.GetRouter()
   router.Run("localhost:8080")
 }
