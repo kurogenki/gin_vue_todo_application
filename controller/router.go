@@ -72,18 +72,7 @@ func GetRouter() *gin.Engine {
     c.JSON(200, gin.H{"message": "test",})
   })
 
-  r.GET("/tasks", func(c *gin.Context) {
-    var allTasks []model.Task
-
-    result := Db.Find(&allTasks)
-
-    // エラーハンドリングを追加
-    if result.Error != nil {
-      c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
-      return
-    }
-    c.JSON(http.StatusOK, gin.H{"datas": allTasks})
-  })
+  r.GET("/tasks", GetAllTasks)
 
   return r
 }

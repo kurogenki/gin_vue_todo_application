@@ -6,7 +6,6 @@ import (
 	"gorm.io/gorm"
 )
 
-
 type Task struct {
   Id  uint
   Title string
@@ -16,13 +15,12 @@ type Task struct {
   DeletedAt gorm.DeletedAt
 }
 
-// func TaskIndex () (datas []Task) {
-//   // var allTasks []Task
-//   fmt.Println(Db)
-//   result := Db.Find(&datas)
-//   if result.Error != nil {
-//     fmt.Println("errorが起きています")
-// 		panic(result.Error)
-// 	}
-// 	return
-// }
+var allTasks []Task
+
+func TaskIndex () (datas []Task) {
+  result := Db.Find(&allTasks)
+  if result.Error != nil {
+		panic(result.Error.Error())
+	}
+	return 
+}
