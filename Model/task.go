@@ -2,17 +2,27 @@ package model
 
 import (
 	"time"
+
+	"gorm.io/gorm"
 )
+
 
 type Task struct {
   Id  uint
   Title string
   Description *string
   CreatedAt time.Time
-  updatedAt time.Time
+  UpdatedAt time.Time
+  DeletedAt gorm.DeletedAt
 }
 
-// func Index () {
-//   var allTasks []Task
-//   model.Db.Find(&allTasks)
+// func TaskIndex () (datas []Task) {
+//   // var allTasks []Task
+//   fmt.Println(Db)
+//   result := Db.Find(&datas)
+//   if result.Error != nil {
+//     fmt.Println("errorが起きています")
+// 		panic(result.Error)
+// 	}
+// 	return
 // }

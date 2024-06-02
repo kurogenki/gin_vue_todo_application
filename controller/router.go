@@ -1,11 +1,20 @@
 package controller
 
 import (
-  "time"
+	"fmt"
+	model "gin_vue_todo_application/Model"
+	"net/http"
+	"os"
+	"time"
 
-  "github.com/gin-contrib/cors"
-  "github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
+
+var Db *gorm.DB
 
 func GetRouter() *gin.Engine {
   r := gin.Default()
@@ -37,13 +46,44 @@ func GetRouter() *gin.Engine {
     MaxAge: 24 * time.Hour,
   }))
 
+
+  err := godotenv.Load(".env")
+  if err != nil {
+    fmt.Println("読み込み出来ませんでした: %v", err)
+  }
+
+  user := os.Getenv("DB_USER")
+	pw := os.Getenv("DB_PASSWORD")
+	db_name := os.Getenv("DB_NAME")
+  db_host := os.Getenv("DB_HOST")
+
+	var path string = fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=true&loc=Local", user, pw, db_host, db_name)
+  Db, err := gorm.Open(mysql.Open(path), &gorm.Config{})
+
+  if err != nil {
+    panic("failed to connect database")
+  } else {
+    fmt.Println("db connected!!")
+    Db.AutoMigrate(model.Task{})
+  }
+
   r.GET("/test", func(c *gin.Context) {
-    c.JSON(200, gin.H{
-      "message": "test",
-    })
+    fmt.Println("test")
+    c.JSON(200, gin.H{"message": "test",})
   })
 
-  // r.GET("/tasks", task.index())
+  r.GET("/tasks", func(c *gin.Context) {
+    var allTasks []model.Task
+
+    result := Db.Find(&allTasks)
+
+    // エラーハンドリングを追加
+    if result.Error != nil {
+      c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+      return
+    }
+    c.JSON(http.StatusOK, gin.H{"datas": allTasks})
+  })
 
   return r
 }

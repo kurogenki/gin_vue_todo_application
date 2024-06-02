@@ -23,12 +23,12 @@ func Init() {
   db_host := os.Getenv("DB_HOST")
 
 	var path string = fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=true&loc=Local", user, pw, db_host, db_name)
-  db, err := gorm.Open(mysql.Open(path))
+  Db, err := gorm.Open(mysql.Open(path), &gorm.Config{})
 
   if err != nil {
-  panic("failed to connect database")
+    panic("failed to connect database")
   } else {
     fmt.Println("db connected!!")
-    db.AutoMigrate(Task{})
+    Db.AutoMigrate(Task{})
   }
 }
