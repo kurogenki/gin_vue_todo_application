@@ -1,26 +1,26 @@
 package model
 
 import (
-	"time"
-
 	"gorm.io/gorm"
 )
 
 type Task struct {
-  Id  uint
-  Title string
-  Description *string
-  CreatedAt time.Time
-  UpdatedAt time.Time
-  DeletedAt gorm.DeletedAt
+  gorm.Model
+  Title string `gorm:"column:title"`
+  Description *string `gorm:"column:description"`
 }
 
-var allTasks []Task
-
-func TaskIndex () (datas []Task) {
-  result := Db.Find(&allTasks)
+func TaskIndex () (datas []Task){
+  result := Db.Find(&datas)
   if result.Error != nil {
 		panic(result.Error.Error())
 	}
-	return 
+	return
+}
+
+func TaskCreate () {
+  result := Db.Create(&Task{Title: "createTest"})
+	if result.Error != nil {
+    panic(result.Error)
+  }
 }

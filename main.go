@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-  // model.Init()
+  // model.Init
 
   router := router.GetRouter()
   router.Run("localhost:8080")
