@@ -7,7 +7,7 @@ import (
 type Task struct {
   gorm.Model
   Title string `gorm:"column:title"`
-  Description *string `gorm:"column:description"`
+  Description string `gorm:"column:description"`
 }
 
 func TaskIndex () (datas []Task){
@@ -18,8 +18,8 @@ func TaskIndex () (datas []Task){
 	return
 }
 
-func TaskCreate () {
-  result := Db.Create(&Task{Title: "createTest"})
+func (t *Task) CreateTask () {
+  result := Db.Create(t)
 	if result.Error != nil {
     panic(result.Error)
   }

@@ -14,6 +14,9 @@ func GetAllTasks(c *gin.Context) {
 }
 
 func CreateTask(c *gin.Context) {
-  model.TaskCreate()
+  title := c.PostForm("title")
+  description := c.PostForm("description")
+  data := model.Task{Title: title, Description: description}
+  data.CreateTask()
   c.JSON(http.StatusOK, gin.H{"datas": "タスクを作成しました"})
 }
