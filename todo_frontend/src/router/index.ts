@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import HomeView from '../views/HomeView.vue'
 import TaskIndex from '../views/tasks/TaskIndex.vue'
 import TaskCreate from '../views/tasks/CreateTask.vue'
+import TaskShow from '../views/tasks/ShowTask.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,8 +9,9 @@ const router = createRouter({
     {path: '/', name: 'home', component: TaskIndex},
     {path: '/tasks',
       children: [
-      {path: '',  component: TaskIndex},
-      {path: 'create',  component: TaskCreate}
+      {path: '', name: 'TaskIndex', component: TaskIndex},
+      {path: ':id', name: 'TaskShow', component: TaskShow},
+      {path: 'create', name: 'TaskCreate', component: TaskCreate}
     ]},
   ]
 })
