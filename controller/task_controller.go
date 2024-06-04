@@ -22,6 +22,18 @@ func ShowTask(c *gin.Context) {
   c.JSON(http.StatusOK, gin.H{"datas": datas})
 }
 
+// タスク更新
+func UpdateTask(c *gin.Context) {
+  id, _ := strconv.Atoi(c.Param("id"))
+  data := model.ShowTask(id)
+	title := c.PostForm("title")
+	data.Title = title
+	description := c.PostForm("description")
+	data.Description = description
+	data.UpdateTask()
+  c.JSON(http.StatusOK, gin.H{"datas": data})
+}
+
 // タスクを新規作成
 func CreateTask(c *gin.Context) {
   title := c.PostForm("title")

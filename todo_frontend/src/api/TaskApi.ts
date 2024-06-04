@@ -33,6 +33,33 @@ export const showTask = async (id:number) => {
   return data.value
 }
 
+// タスクを新規登録
+export const createTask = async (formData: object) => {
+  await axios.post('http://localhost:8080/tasks', formData)
+  .then(function (response) {
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+  .finally(function () {
+  });
+}
+
+// タスクを更新
+export const updateTask = async (id: number, formData: object) => {
+  await axios.put(`http://localhost:8080/tasks/${id}/update`, formData)
+  .then(function (response) {
+    data.value = response.data.datas;
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+  .finally(function () {
+  });
+
+  return data.value
+}
+
 // タスクを削除
 export const deleteTask = async (id: number) => {
   await axios.delete(`http://localhost:8080/tasks/${id}`)

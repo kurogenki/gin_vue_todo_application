@@ -36,6 +36,14 @@ func (t *Task) CreateTask () {
   }
 }
 
+// タスクを更新する
+func (t *Task) UpdateTask () {
+  result := Db.Save(t)
+	if result.Error != nil {
+    panic(result.Error)
+  }
+}
+
 // タスクを削除する
 func DeleteTask (id int) {
   result := Db.Delete(&Task{}, id)

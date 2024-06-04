@@ -43,6 +43,7 @@ func GetRouter() *gin.Engine {
   r.GET("/tasks/:id", ShowTask)
   r.POST("/tasks", CreateTask)
   r.DELETE("/tasks/:id", DeleteTask)
+  r.PUT("/tasks/:id/update", UpdateTask)
   
   return r
 }

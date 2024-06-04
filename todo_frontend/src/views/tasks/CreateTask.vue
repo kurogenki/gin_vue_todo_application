@@ -1,7 +1,7 @@
 <template>
   <div style="color: black; background-color: antiquewhite;" >
     <h1 style="color: red;">タスクを新規作成する</h1>
-    <form @submit.prevent="createTask">
+    <form @submit.prevent="create">
       <div>
         <label>タスクのタイトル</label>
         <input type="text" v-model="task.title">
@@ -15,9 +15,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import {createTask} from "../../api/TaskApi";
 
 const router = useRouter()
 const task = ref({
@@ -27,17 +27,11 @@ const task = ref({
 
 // TODO formData以外で送信する方法がないか検討
 const formData = new FormData();
-const createTask = () => {
+const create = async () => {
   formData.append("title", task.value.title);
   formData.append("description", task.value.description);
-  axios.post('http://localhost:8080/tasks', formData)
-  .then(function (response) {
-    router.push("/")
-  })
-  .catch(function (error) {
-    console.log(error);
-  })
-  .finally(function () {
-  });
+  await createTask(formData)
+  router.push("/")
 }
+
 </script>

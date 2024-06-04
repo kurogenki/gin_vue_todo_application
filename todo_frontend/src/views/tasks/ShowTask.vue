@@ -4,10 +4,9 @@
     <h2>タイトル：{{ task.Title }}</h2>
     <h2>詳細：{{ task.Description }}</h2>
   </div>
-  <div @click="router.push({name: 'TaskEdit', params:{id: task.id}})">編集モードに変更する</div>
+  <div @click="router.push({name: 'TaskUpdate', params:{id: task.id}})">編集モードに変更する</div>
 </template>
 <script setup lang="ts">
-import axios from "axios";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import {showTask} from "../../api/TaskApi/"
