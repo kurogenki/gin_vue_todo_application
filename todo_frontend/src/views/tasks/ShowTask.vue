@@ -4,28 +4,19 @@
     <h2>タイトル：{{ task.Title }}</h2>
     <h2>詳細：{{ task.Description }}</h2>
   </div>
+  <div @click="router.push({name: 'TaskEdit', params:{id: task.id}})">編集モードに変更する</div>
 </template>
 <script setup lang="ts">
 import axios from "axios";
 import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import {showTask} from "../../api/TaskApi/"
 
 const route = useRoute()
+const router = useRouter()
 const task = ref<object>()
 
-onMounted(() => {
-  showTask()
+onMounted(async () => {
+  task.value = await showTask(route.params.id)
 })
-
-const showTask = () => {
-  axios.get(`http://localhost:8080/tasks/${route.params.id}`)
-  .then(function (response) {
-    task.value = response.data.datas;
-  })
-  .catch(function (error) {
-    console.log(error);
-  })
-  .finally(function () {
-  });
-}
 </script>

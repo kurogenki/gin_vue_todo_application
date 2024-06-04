@@ -7,7 +7,7 @@
         <h2 @click=" router.push({name: 'TaskShow', params:{id: task.ID}})">
           <span>{{task.ID}}, </span>
           <span>タイトル：{{ task.Title }}</span>
-          <button type="button" @click.stop="deleteTask(task.ID)" style="color: red; margin-left: 30px;">削除</button>
+          <button type="button" @click.stop="drop(task.ID)" style="color: red; margin-left: 30px;">削除</button>
         </h2>
       </div>
     </div>
@@ -15,40 +15,20 @@
   <RouterLink to="tasks/create">新規登録画面へ</RouterLink>
 </template>
 <script setup lang="ts">
-import axios from "axios";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
+import {getTasks, deleteTask} from "../../api/TaskApi/";
 
 const router = useRouter()
-const testString = ref<string>('');
 
 const tasks = ref<object>({})
-onMounted(() => {
-  getTasks()
+
+onMounted(async () => {
+  tasks.value = await getTasks();
 })
 
-const getTasks = () => {
-  axios.get('http://localhost:8080/tasks')
-  .then(function (response) {
-    tasks.value = response.data.datas;
-  })
-  .catch(function (error) {
-    console.log(error);
-  })
-  .finally(function () {
-  });
-}
-
-const deleteTask = (id) => {
-  axios.delete(`http://localhost:8080/tasks/${id}`)
-  .then(function (response) {
-    tasks.value = response.data.datas;
-    getTasks()
-  })
-  .catch(function (error) {
-    console.log(error);
-  })
-  .finally(function () {
-  });
+const drop = async (id:number) => {
+  await deleteTask(id)
+  tasks.value = await getTasks()
 }
 </script>
