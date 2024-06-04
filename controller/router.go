@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -21,6 +20,8 @@ func GetRouter() *gin.Engine {
     AllowMethods: []string{
         "POST",
         "GET",
+        "PUT",
+        "DELETE",
         "OPTIONS",
     },
     // 許可したいHTTPリクエストヘッダ
@@ -37,14 +38,12 @@ func GetRouter() *gin.Engine {
     // preflightリクエストの結果をキャッシュする時間
     MaxAge: 24 * time.Hour,
   }))
-
-  r.GET("/test", func(c *gin.Context) {
-    fmt.Println("test")
-    c.JSON(200, gin.H{"message": "test",})
-  })
   
   r.GET("/tasks", GetAllTasks)
+  r.GET("/tasks/:id", ShowTask)
   r.POST("/tasks", CreateTask)
+  r.DELETE("/tasks/:id", DeleteTask)
+  r.PUT("/tasks/:id/update", UpdateTask)
   
   return r
 }
