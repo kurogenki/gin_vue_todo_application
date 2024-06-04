@@ -6,7 +6,7 @@
       <div v-for="task in tasks" :key="task.id">
         <h2 @click=" router.push({name: 'TaskShow', params:{id: task.ID}})">
           <span>{{task.ID}}, </span>
-          <span>{{ task.Title }}</span>
+          <span>タイトル：{{ task.Title }}</span>
           <button type="button" @click.stop="deleteTask(task.ID)" style="color: red; margin-left: 30px;">削除</button>
         </h2>
       </div>

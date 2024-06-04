@@ -1,7 +1,8 @@
 <template>
   <div style="color: black; background-color: antiquewhite;" v-if="task">
     <h1>以下はタスク ID {{ task.ID }}のタイトルです</h1>
-    <h2>{{ task.Title }}</h2>
+    <h2>タイトル：{{ task.Title }}</h2>
+    <h2>詳細：{{ task.Description }}</h2>
   </div>
 </template>
 <script setup lang="ts">
