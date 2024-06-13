@@ -12,9 +12,6 @@ export const getTasks = async () => {
   .catch(function (error) {
     console.log(error);
   })
-  .finally(function () {
-  });
-
   return data.value
 }
 
@@ -27,9 +24,6 @@ export const showTask = async (id:number) => {
   .catch(function (error) {
     console.log(error);
   })
-  .finally(function () {
-  });
-
   return data.value
 }
 
@@ -41,8 +35,6 @@ export const createTask = async (formData: object) => {
   .catch(function (error) {
     console.log(error);
   })
-  .finally(function () {
-  });
 }
 
 // タスクを更新
@@ -54,9 +46,6 @@ export const updateTask = async (id: number, formData: object) => {
   .catch(function (error) {
     console.log(error);
   })
-  .finally(function () {
-  });
-
   return data.value
 }
 
@@ -69,8 +58,5 @@ export const deleteTask = async (id: number) => {
   .catch(function (error) {
     console.log(error);
   })
-  .finally(function () {
-  });
-
   return data.value
 }
